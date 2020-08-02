@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Etch-a-Sketch</title>
+  <meta charset="UTF-8"/>
+  <style>
+    #container {
+      display: flex;
+      flex-wrap: wrap;
+      width: 960px;
+      height: 960px;
+      border-style: solid;
+      border-width: 2px;
+      border-color: black;
+    }
+  </style>
+</head>
+<body>
+    <button id='clearButton'>Clear</button>
+    <div id="container"></div>
+</body>
+<script>
+  const container = document.querySelector('#container');
+  let gridSize = 16;
+  drawGrid();
+
+  function drawGrid(){
+    for (i=1; i <= gridSize*gridSize; i++){
+      let content = document.createElement('div');
+      content.classList.add(`box${i}`);
+      content.style.width = `${100/gridSize}%`;
+      content.style.height = `${100/gridSize}%`;
+      content.addEventListener('mouseenter', () => {
+        draw(content);
+      })
+      container.appendChild(content);
+    }
+  }
+  
+  function draw(location) {
+    location.style.backgroundColor = 'black';
+  }
+
+  const clearButton = document.querySelector('#clearButton');
+  clearButton.addEventListener('click', () => {
+    clear();
+  });
+
+  function clear() {
+    while (container.hasChildNodes()) {  
+    container.removeChild(container.firstChild);
+    }
+    gridSize = prompt('How many squares per side?');
+    gridSize = Number(gridSize);
+    drawGrid();
+  }
+
+
+</script>
+</html>
